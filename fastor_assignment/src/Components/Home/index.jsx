@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import "./style.css"
+import { useNavigate } from "react-router-dom";
 
 
 export const Home = () => {
-
+    const navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [restaurantData, setRestaurantData] = useState([]);
 
@@ -23,7 +24,12 @@ export const Home = () => {
     }
 
     useEffect(() => {
-        handleGetData();
+        if (!userData) {
+            navigate('/login')
+        } else {
+
+            handleGetData();
+        }
     }, [])
 
     return (
